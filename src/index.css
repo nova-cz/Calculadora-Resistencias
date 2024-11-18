@@ -1,13 +1,82 @@
-body {
+/* index.css */
+
+/* Reiniciar márgenes y rellenos globalmente */
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box; /* Para que los bordes y los rellenos no afecten el tamaño total del elemento */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Establecer márgenes globales de manera controlada */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #023047;  /* Fondo general */
+  color: #8ecae6;  /* Color del texto */
+}
+
+/* El contenedor principal .App */
+.App {
+  text-align: center;
+  margin: 0 auto; /* Centra la app */
+  padding: 20px;
+}
+
+/* Estilo del encabezado */
+.App h1 {
+  color: #ffb703;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Estilo del menú */
+.menu {
+  margin-bottom: 20px; /* Espacio entre el menú y el contenido */
+  background-color: #264653;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Estilo de los botones */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffb703;
+  color: white;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background-color: #e76f51;
+}
+
+/* Estilo de los inputs */
+input {
+  margin: 5px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #264653;
+  width: 200px;
+}
+
+input:focus {
+  border-color: #ffb703;
+  outline: none;
+}
+
+/* Contenedor del contenido */
+.content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 0; /* Elimina el margen superior innecesario */
 }
