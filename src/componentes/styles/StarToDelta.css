@@ -1,0 +1,148 @@
+.body-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Quicksand', sans-serif; /* Cambia aquí la fuente */
+    margin-bottom: 20px;
+}
+
+.input-container {
+    margin-top: 50px; /* Agregar margen superior para separar el título de los inputs */
+    margin-bottom: 30px;
+}
+
+.input-container label {
+    
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.input-container input {
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 14px;
+    width: 100px;
+}
+
+.input-container button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.input-container button:hover {
+    background-color: #005f73;
+}
+
+.result-container {
+    margin-top: 10px;
+}
+
+.result-container h3 {
+    margin-bottom: 1px;
+}
+
+.procedure {
+    margin-top: 30px;
+    max-width: 600px;
+    text-align: left;
+}
+
+.procedure h3 {
+    margin-bottom: 10px;
+}
+
+.procedure ol {
+    margin-left: 20px;
+}
+
+.procedure ul {
+    list-style-type: none; /* Elimina los círculos */
+    padding-left: 0; /* Elimina la indentación por defecto */
+}
+
+.procedure li {
+    margin-bottom: 5px; /* Espaciado entre los elementos de la lista */
+}
+
+/* Animación para hacer que el resultado aparezca */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px); /* Comienza desde arriba */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Llega a su posición original */
+    }
+}
+
+.result-container {
+    margin-top: 0px;
+    animation: fadeIn 1s ease-out; /* Aplicamos la animación */
+}
+
+.result-container h3 {
+    margin-bottom: 10px;
+}
+
+.input-container button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.input-container button:hover {
+    background-color: #005f73;
+    transform: translateY(-2px); /* Sube un poco el botón */
+}
+
+.input-container button:active {
+    transform: translateY(1px); /* Bajo el botón cuando se hace clic */
+}
+
+/* Animación para los elementos de la lista */
+@keyframes listItemFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px); /* Aparece desde la izquierda */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Aplicamos la animación a cada item de la lista */
+.procedure li {
+    margin-bottom: 5px;
+    animation: listItemFadeIn 0.6s ease-out;
+}
+
+.procedure li:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.procedure li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.procedure li:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.procedure li:nth-child(4) {
+    animation-delay: 0.6s;
+}
