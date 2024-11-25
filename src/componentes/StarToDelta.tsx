@@ -1,95 +1,127 @@
 import React, { useState } from "react";
 import { Stage, Layer, Line, Text } from "react-konva";
 import { motion } from "framer-motion";
+import "./styles/StarToDelta.css"; // Asegúrate de importar el archivo CSS
 
 const StarToDelta: React.FC = () => {
-    const [Ra, setRa] = useState<number>(0);
-    const [Rb, setRb] = useState<number>(0);
-    const [Rc, setRc] = useState<number>(0);
-    const [result, setResult] = useState<{ R1: number; R2: number; R3: number } | null>(null);
+    const [a, setA] = useState<string>("0");
+    const [b, setB] = useState<string>("0");
+    const [c, setC] = useState<string>("0");
+    const [result, setResult] = useState<{ A: number; B: number; C: number } | null>(null);
 
+    // Función para parsear la entrada con las unidades
+    const parseInput = (input: string): number => {
+        const sanitized = input.trim().toLowerCase();
+        const regex = /^(\d+(\.\d+)?)([km]?)$/;
+        const match = sanitized.match(regex);
+
+        if (!match) {
+            return 0; // Si no coincide con el formato esperado, devolver 0
+        }
+
+        const value = parseFloat(match[1]);
+        const suffix = match[3];
+
+        if (suffix === "k") return value * 1000;
+        if (suffix === "m") return value * 1000000;
+        return value;
+    };
+
+    // Controlador de eventos para filtrar entrada en tiempo real
+    const handleInputChange = (index: number, value: string) => {
+        const sanitizedValue = value.replace(/[^0-9km.]/gi, ""); // Permite solo números, 'k', 'm', '.'
+        if (index === 0) setA(sanitizedValue);
+        else if (index === 1) setB(sanitizedValue);
+        else if (index === 2) setC(sanitizedValue);
+    };
+
+    // Cálculo de las resistencias en el sistema Delta
     const calculate = () => {
-        const suma = Ra * Rb + Rb * Rc + Rc * Ra;
+        const parsedA = parseInput(a);
+        const parsedB = parseInput(b);
+        const parsedC = parseInput(c);
+        const suma = parsedA * parsedB + parsedB * parsedC + parsedC * parsedA;
         setResult({
-            R1: suma / Rc,
-            R2: suma / Ra,
-            R3: suma / Rb,
+            A: suma / parsedC,
+            B: suma / parsedA,
+            C: suma / parsedB,
         });
     };
 
-    const formatNumber = (num: number) => num.toLocaleString();
+    const formatNumber = (num: number): string => {
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + "m";
+        if (num >= 1000) return (num / 1000).toFixed(1) + "k";
+        return num.toLocaleString();
+    };
 
-    // Dimensiones del Stage
     const stageWidth = 1100;
     const stageHeight = 450;
-
-    // Calcular el centro del Stage
     const centerX = stageWidth / 2;
     const centerY = stageHeight / 2;
+    const separation = 220;
 
-    // Separación entre Estrella y Delta
-    const separation = 120;
+    // Estado para mostrar la información de la letra
+    const [info, setInfo] = useState<string | null>(null);
+
+    // Función para manejar el clic en las letras
+    const handleClick = (letter: string) => {
+        let infoText = '';
+        switch (letter) {
+            case 'A':
+                infoText = 'Información sobre la letra A';
+                break;
+            case 'B':
+                infoText = 'Información sobre la letra B';
+                break;
+            case 'C':
+                infoText = 'Información sobre la letra C';
+                break;
+            case 'a':
+                infoText = 'Información sobre la letra a';
+                break;
+            case 'b':
+                infoText = 'Información sobre la letra b';
+                break;
+            case 'c':
+                infoText = 'Información sobre la letra c';
+                break;
+            default:
+                infoText = '';
+        }
+        setInfo(infoText);
+    };
 
     return (
-        <motion.div initial={{ x: 200 }} animate={{ x: 0 }} style={{ textAlign: "center", backgroundColor: "#023047", minHeight: "100vh", padding: "40px" }}>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", color: "#8ecae6" }}>Conversión de Estrella a Delta</h2>
+        <div className="body-container">
+            <h2>Conversión de Estrella a Delta</h2>
 
-            {/* Formulario de entrada */}
-            <div style={{ marginBottom: "30px", display: "flex", justifyContent: "center", gap: "20px" }}>
-                {["Ra", "Rb", "Rc"].map((label, index) => (
-                    <label key={index} style={{ fontFamily: "'Poppins', sans-serif", color: "#ffb703" }}>
+            <div className="input-container">
+                {["a", "b", "c"].map((label, index) => (
+                    <label key={index}>
                         {label}:{" "}
                         <input
-                            type="number"
-                            value={index === 0 ? Ra : index === 1 ? Rb : Rc}
-                            onChange={(e) =>
-                                index === 0
-                                    ? setRa(Number(e.target.value))
-                                    : index === 1
-                                    ? setRb(Number(e.target.value))
-                                    : setRc(Number(e.target.value))
-                            }
+                            type="text"
+                            value={index === 0 ? a : index === 1 ? b : c}
+                            onChange={(e) => handleInputChange(index, e.target.value)}
                             onFocus={(e) => {
                                 if (e.target.value === "0") e.target.value = "";
                             }}
                             onBlur={(e) => {
                                 if (e.target.value === "") {
-                                    if (index === 0) setRa(0);
-                                    else if (index === 1) setRb(0);
-                                    else if (index === 2) setRc(0);
+                                    if (index === 0) setA("0");
+                                    else if (index === 1) setB("0");
+                                    else if (index === 2) setC("0");
                                 }
-                            }}
-                            style={{
-                                padding: "5px",
-                                borderRadius: "5px",
-                                border: "1px solid #264653",
-                                width: "80px",
-                                marginLeft: "10px",
                             }}
                         />
                     </label>
                 ))}
-                <button
-                    onClick={calculate}
-                    style={{
-                        padding: "10px 20px",
-                        marginLeft: "20px",
-                        backgroundColor: "#e76f51",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "8px",
-                        cursor: "pointer",
-                        fontFamily: "'Poppins', sans-serif",
-                    }}
-                >
-                    Calcular
-                </button>
+                <button onClick={calculate}>Calcular</button>
             </div>
 
-            {/* Dibujo de la Estrella y Delta */}
             <Stage width={stageWidth} height={stageHeight}>
                 <Layer>
-                    {/* Dibujo de la Estrella */}
+                    {/* Representación visual de la estrella */}
                     <Line
                         points={[centerX - 150 - separation, centerY - 50, centerX - 150 - separation, centerY + 50]}
                         stroke="#8ecae6"
@@ -105,8 +137,6 @@ const StarToDelta: React.FC = () => {
                         stroke="#8ecae6"
                         strokeWidth={3}
                     />
-
-                    {/* Dibujo del Delta */}
                     <Line
                         points={[centerX + 150 + separation, centerY - 50, centerX + 50 + separation, centerY + 50]}
                         stroke="#8ecae6"
@@ -125,10 +155,10 @@ const StarToDelta: React.FC = () => {
                 </Layer>
 
                 <Layer>
-                    {/* Texto en la Estrella */}
+                    {/* Nombres de las resistencias en la figura Estrella */}
                     <Text
                         text="a"
-                        x={centerX - 160 - separation}
+                        x={centerX - 154 - separation}
                         y={centerY - 70}
                         fontSize={16}
                         fontFamily="'Poppins', sans-serif"
@@ -144,34 +174,32 @@ const StarToDelta: React.FC = () => {
                     />
                     <Text
                         text="c"
-                        x={centerX - 110 - separation}
+                        x={centerX - 95 - separation}
                         y={centerY + 110}
                         fontSize={16}
                         fontFamily="'Poppins', sans-serif"
                         fill="#fb8500"
                     />
-
-                    {/* Texto en el Delta en el centro de cada línea */}
                     <Text
                         text="A"
-                        x={(centerX + 50 + separation + centerX + 250 + separation) / 2 - 10}
-                        y={centerY + 60}
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
-                    <Text
-                        text="B"
-                        x={(centerX + 150 + separation + centerX + 50 + separation) / 2 - 10}
-                        y={(centerY - 50 + centerY + 50) / 2 - 20}  // Ajuste hacia arriba
+                        x={centerX + 140 + separation}
+                        y={centerY + 70}
                         fontSize={16}
                         fontFamily="'Poppins', sans-serif"
                         fill="#fb8500"
                     />
                     <Text
                         text="C"
-                        x={(centerX + 250 + separation + centerX + 150 + separation) / 2 - 10}
-                        y={(centerY + 50 + centerY - 70) / 2 - 20}  // Ajuste hacia arriba
+                        x={centerX + 70 + separation}
+                        y={centerY -20}
+                        fontSize={16}
+                        fontFamily="'Poppins', sans-serif"
+                        fill="#fb8500"
+                    />
+                    <Text
+                        text="B"
+                        x={centerX + 220 + separation}
+                        y={centerY - 20}
                         fontSize={16}
                         fontFamily="'Poppins', sans-serif"
                         fill="#fb8500"
@@ -179,34 +207,50 @@ const StarToDelta: React.FC = () => {
                 </Layer>
             </Stage>
 
-            {/* Información de la Estrella y Delta en la misma línea */}
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: `${separation * 2}px`,
-                    marginTop: "30px",
-                    color: "#ffb703",
-                    fontFamily: "'Poppins', sans-serif",
-                }}
-            >
-                {/* Información de la Estrella */}
+            <div className="result-container">
                 <div>
                     <h3>Valores de Estrella</h3>
-                    <p>a: {formatNumber(Ra)}</p>
-                    <p>b: {formatNumber(Rb)}</p>
-                    <p>c: {formatNumber(Rc)}</p>
+                    <p>a: {formatNumber(parseInput(a))}</p>
+                    <p>b: {formatNumber(parseInput(b))}</p>
+                    <p>c: {formatNumber(parseInput(c))}</p>
                 </div>
 
-                {/* Información del Delta */}
-                <div style={{ color: "#fb8500" }}>
-                    <h3>Valores de Delta</h3>
-                    <p>R1: {result ? formatNumber(result.R1) : ""}</p>
-                    <p>R2: {result ? formatNumber(result.R2) : ""}</p>
-                    <p>R3: {result ? formatNumber(result.R3) : ""}</p>
-                </div>
+                {result && (
+                    <div>
+                        <h3>Resultados de Delta</h3>
+                        <p>A: {formatNumber(result.A)}</p>
+                        <p>B: {formatNumber(result.B)}</p>
+                        <p>C: {formatNumber(result.C)}</p>
+                    </div>
+                )}
             </div>
-        </motion.div>
+
+            <div className="procedure">
+                <h3>Procedimiento paso a paso:</h3>
+                <ol>
+                    <li>
+                        <strong>Introducción de valores:</strong> Los valores ingresados son:
+                        <ul>
+                            <li>a = {formatNumber(parseInput(a))}</li>
+                            <li>b = {formatNumber(parseInput(b))}</li>
+                            <li>c = {formatNumber(parseInput(c))}</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Cálculo de la resistencia en Delta:</strong>
+                        <br />
+                        <code>A = (a * b + b * c + c * a) / c = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(c))}</code>
+                        <br />
+                        <code>B = (a * b + b * c + c * a) / a = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(a))}</code>
+                        <br />
+                        <code>C = (a * b + b * c + c * a) / b = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(b))}</code>
+                    </li>
+                    <li>
+                        <strong>Visualización:</strong> Se muestra una representación visual del triángulo Delta con valores para A, B y C, así como la estrella con los valores a, b y c.
+                    </li>
+                </ol>
+            </div>
+        </div>
     );
 };
 

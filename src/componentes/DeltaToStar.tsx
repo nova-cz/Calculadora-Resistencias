@@ -1,210 +1,285 @@
 import React, { useState } from "react";
 import { Stage, Layer, Line, Text } from "react-konva";
+import { motion } from "framer-motion";
+import './styles/deltatoStar.css'; // Importa el archivo CSS
+
 
 const DeltaToStarWithValues: React.FC = () => {
-    const [R1, setR1] = useState<number>(0);
-    const [R2, setR2] = useState<number>(0);
-    const [R3, setR3] = useState<number>(0);
-    const [result, setResult] = useState<{ Ra: number; Rb: number; Rc: number } | null>(null);
+    const [A, setA] = useState<string>("0");
+    const [B, setB] = useState<string>("0");
+    const [C, setC] = useState<string>("0");
+    const [result, setResult] = useState<{ a: number; b: number; c: number } | null>(null);
+
+    const parseInput = (input: string): number => {
+        const sanitized = input.trim().toLowerCase();
+        // Expresión regular: números enteros o decimales opcionales, con sufijos "k/m" opcionales
+        const regex = /^(\d+(\.\d+)?)([km]?)$/;
+        const match = sanitized.match(regex);
+
+        if (!match) {
+            return 0; // Si no coincide con el formato esperado, devolver 0
+        }
+
+        const value = parseFloat(match[1]);
+        const suffix = match[3];
+
+        if (suffix === "k") return value * 1000;
+        if (suffix === "m") return value * 1000000;
+        return value;
+    };
+
+    // Controlador de eventos para filtrar entrada en tiempo real
+    const handleInputChange = (index: number, value: string) => {
+        const sanitizedValue = value.replace(/[^0-9km.]/gi, ""); // Permite solo números, 'k', 'm', '.'
+        if (index === 0) setA(sanitizedValue);
+        else if (index === 1) setB(sanitizedValue);
+        else if (index === 2) setC(sanitizedValue);
+    };
 
     const calculate = () => {
-        const suma = R1 + R2 + R3;
+        const parsedA = parseInput(A);
+        const parsedB = parseInput(B);
+        const parsedC = parseInput(C);
+        const suma = parsedA + parsedB + parsedC;
         setResult({
-            Ra: (R1 * R2) / suma,
-            Rb: (R2 * R3) / suma,
-            Rc: (R3 * R1) / suma,
+            a: (parsedB * parsedC) / suma,
+            b: (parsedA * parsedC) / suma,
+            c: (parsedA * parsedB) / suma,
         });
     };
 
-    const formatNumber = (num: number) => num.toLocaleString();
+    const formatNumber = (num: number): string => {
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + "m";
+        if (num >= 1000) return (num / 1000).toFixed(1) + "k";
+        return num.toLocaleString();
+    };
 
-    // Dimensiones del Stage
+    const floatingAnimation = {
+        initial: { y: 0, scale: 1 },
+        animate: {
+            y: [0, -15, 0], // Se moverá hacia arriba y abajo
+            scale: [1, 1.2, 1], // Escala ligeramente las letras
+            transition: {
+                y: {
+                    repeat: Infinity,  // Repite infinitamente
+                    duration: 1,       // Duración de un ciclo
+                    ease: "easeInOut"  // Tipo de animación
+                },
+                scale: {
+                    repeat: Infinity,
+                    duration: 1.5,
+                    ease: "easeInOut",
+                }
+            }
+        }
+    };
+
     const stageWidth = 1100;
     const stageHeight = 450;
-
-    // Calcular el centro del Stage
     const centerX = stageWidth / 2;
     const centerY = stageHeight / 2;
+    const separation = 220;
 
-    // Separación entre Delta y Estrella
-    const separation = 120;
+    // Estado para mostrar la información de la letra
+    const [info, setInfo] = useState<string | null>(null);
+
+    // Función para manejar el clic en las letras
+    const handleClick = (letter: string) => {
+        let infoText = '';
+        switch (letter) {
+            case 'A':
+                infoText = 'Información sobre la letra A';
+                break;
+            case 'B':
+                infoText = 'Información sobre la letra B';
+                break;
+            case 'C':
+                infoText = 'Información sobre la letra C';
+                break;
+            case 'a':
+                infoText = 'Información sobre la letra a';
+                break;
+            case 'b':
+                infoText = 'Información sobre la letra b';
+                break;
+            case 'c':
+                infoText = 'Información sobre la letra c';
+                break;
+            default:
+                infoText = '';
+        }
+        setInfo(infoText);
+    };
 
     return (
-        <div style={{ textAlign: "center", backgroundColor: "#023047", minHeight: "100vh", padding: "40px" }}>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", color: "#8ecae6" }}>Conversión de Delta a Estrella</h2>
+        <div className="body-container">
+            <h2>Conversión de Delta a Estrella</h2>
 
-            {/* Formulario de entrada */}
-            <div style={{ marginBottom: "30px", display: "flex", justifyContent: "center", gap: "20px" }}>
-                {["R1", "R2", "R3"].map((label, index) => (
-                    <label key={index} style={{ fontFamily: "'Poppins', sans-serif", color: "#ffb703" }}>
+            <div className="input-container">
+                {["A", "B", "C"].map((label, index) => (
+                    <label key={index}>
                         {label}:{" "}
                         <input
-                            type="number"
-                            value={index === 0 ? R1 : index === 1 ? R2 : R3}
-                            onChange={(e) =>
-                                index === 0
-                                    ? setR1(Number(e.target.value))
-                                    : index === 1
-                                    ? setR2(Number(e.target.value))
-                                    : setR3(Number(e.target.value))
-                            }
+                            type="text"
+                            value={index === 0 ? A : index === 1 ? B : C}
+                            onChange={(e) => handleInputChange(index, e.target.value)}
                             onFocus={(e) => {
                                 if (e.target.value === "0") e.target.value = "";
                             }}
                             onBlur={(e) => {
                                 if (e.target.value === "") {
-                                    if (index === 0) setR1(0);
-                                    else if (index === 1) setR2(0);
-                                    else if (index === 2) setR3(0);
+                                    if (index === 0) setA("0");
+                                    else if (index === 1) setB("0");
+                                    else if (index === 2) setC("0");
                                 }
-                            }}
-                            style={{
-                                padding: "5px",
-                                borderRadius: "5px",
-                                border: "1px solid #264653",
-                                width: "80px",
-                                marginLeft: "10px",
                             }}
                         />
                     </label>
                 ))}
-                <button
-                    onClick={calculate}
-                    style={{
-                        padding: "10px 20px",
-                        marginLeft: "20px",
-                        backgroundColor: "#e76f51",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "8px",
-                        cursor: "pointer",
-                        fontFamily: "'Poppins', sans-serif",
-                    }}
-                >
-                    Calcular
-                </button>
+                <button onClick={calculate}>Calcular</button>
             </div>
 
-            {/* Dibujo del Delta y Estrella */}
             <Stage width={stageWidth} height={stageHeight}>
                 <Layer>
-                    {/* Dibujo del Delta */}
-                    <Line
-                        points={[centerX - 150 - separation, centerY - 50, centerX - 50 - separation, centerY + 50]}
-                        stroke="#8ecae6"
-                        strokeWidth={3}
-                    />
-                    <Line
-                        points={[centerX - 50 - separation, centerY + 50, centerX - 250 - separation, centerY + 50]}
-                        stroke="#8ecae6"
-                        strokeWidth={3}
-                    />
-                    <Line
-                        points={[centerX - 250 - separation, centerY + 50, centerX - 150 - separation, centerY - 50]}
-                        stroke="#8ecae6"
-                        strokeWidth={3}
-                    />
+                    
+                        <Line
+                            points={[centerX - 150 - separation + 100, centerY - 50, centerX - 50 - separation + 100, centerY + 50]}
+                            stroke="#8ecae6"
+                            strokeWidth={3}
+                        />
+                        <Line
+                            points={[centerX - 50 - separation + 100, centerY + 50, centerX - 250 - separation + 100, centerY + 50]}
+                            stroke="#8ecae6"
+                            strokeWidth={3}
+                        />
+                        <Line
+                            points={[centerX - 250 - separation + 100, centerY + 50, centerX - 150 - separation + 100, centerY - 50]}
+                            stroke="#8ecae6"
+                            strokeWidth={3}
+                        />
 
-                    {/* Dibujo de la Estrella */}
-                    <Line
-                        points={[centerX + 150 + separation, centerY - 50, centerX + 150 + separation, centerY + 50]}
-                        stroke="#8ecae6"
-                        strokeWidth={3}
-                    />
-                    <Line
-                        points={[centerX + 150 + separation, centerY + 50, centerX + 100 + separation, centerY + 100]}
-                        stroke="#8ecae6"
-                        strokeWidth={3}
-                    />
-                    <Line
-                        points={[centerX + 150 + separation, centerY + 50, centerX + 200 + separation, centerY + 100]}
-                        stroke="#8ecae6"
-                        strokeWidth={3}
-                    />
-                </Layer>
+                        {/* Líneas de la estrella */}
+                        <Line
+                            points={[centerX + 190 + separation, centerY - 50, centerX + 190 + separation, centerY + 50]}
+                            stroke="#8ecae6"
+                            strokeWidth={3}
+                        />
+                        <Line
+                            points={[centerX + 190 + separation, centerY + 50, centerX + 140 + separation, centerY + 100]}
+                            stroke="#8ecae6"
+                            strokeWidth={3}
+                        />
+                        <Line
+                            points={[centerX + 190 + separation, centerY + 50, centerX + 240 + separation, centerY + 100]}
+                            stroke="#8ecae6"
+                            strokeWidth={3}
+                        />
 
-                <Layer>
-                    {/* Texto en el Delta en el centro de cada línea */}
-                    <Text
-                        text="A"
-                        x={(centerX - 50 - separation + centerX - 250 - separation) / 2 - 10}
-                        y={centerY + 60}
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
-                    <Text
-                        text="B"
-                        x={(centerX - 150 - separation + centerX - 50 - separation) / 2 - 10}
-                        y={(centerY - 50 + centerY + 20) / 2 - 20}  // Ajuste hacia arriba
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
-                    <Text
-                        text="C"
-                        x={(centerX - 250 - separation + centerX - 150 - separation) / 2 - 10}
-                        y={(centerY + 50 + centerY - 75) / 2 - 20}  // Ajuste hacia arriba
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
+                        {/* Letras para el triángulo Delta */}
+                        <Text
+                            text="A"
+                            x={(centerX - 50 - separation + centerX - 250 - separation) / 2 - 10 + 100}
+                            y={centerY + 60}
+                            fontSize={16}
+                            fontFamily="'Poppins', sans-serif"
+                            fill="#fb8500"
+                            onClick={() => handleClick('A')}
+                        />
+                        <Text
+                            text="B"
+                            x={(centerX - 150 - separation + centerX - 50 - separation) / 2 - 10 + 100}
+                            y={(centerY - 50 + centerY + 20) / 2 - 20}
+                            fontSize={16}
+                            fontFamily="'Poppins', sans-serif"
+                            fill="#fb8500"
+                            onClick={() => handleClick('B')}
+                        />
+                        <Text
+                            text="C"
+                            x={(centerX - 250 - separation + centerX - 150 - separation) / 2 - 10 + 100}
+                            y={(centerY + 50 + centerY - 75) / 2 - 20}
+                            fontSize={16}
+                            fontFamily="'Poppins', sans-serif"
+                            fill="#fb8500"
+                            onClick={() => handleClick('C')}
+                        />
 
-                    {/* Texto en la Estrella */}
-                    <Text
-                        text="a"
-                        x={centerX + 140 + separation}
-                        y={centerY - 70}
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
-                    <Text
-                        text="b"
-                        x={centerX + 90 + separation}
-                        y={centerY + 105}
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
-                    <Text
-                        text="c"
-                        x={centerX + 190 + separation}
-                        y={centerY + 105}
-                        fontSize={16}
-                        fontFamily="'Poppins', sans-serif"
-                        fill="#fb8500"
-                    />
+                        {/* Letras para la estrella */}
+                        <Text
+                            text="a"
+                            x={centerX + 140 + separation + 44}
+                            y={centerY - 70}
+                            fontSize={16}
+                            fontFamily="'Poppins', sans-serif"
+                            fill="#fb8500"
+                            onClick={() => handleClick('a')}
+                        />
+                        <Text
+                            text="b"
+                            x={centerX + 90 + separation + 40}
+                            y={centerY + 105}
+                            fontSize={16}
+                            fontFamily="'Poppins', sans-serif"
+                            fill="#fb8500"
+                            onClick={() => handleClick('b')}
+                        />
+                        <Text
+                            text="c"
+                            x={centerX + 190 + separation + 52}
+                            y={centerY + 105}
+                            fontSize={16}
+                            fontFamily="'Poppins', sans-serif"
+                            fill="#fb8500"
+                            onClick={() => handleClick('c')}
+                        />
+                    
                 </Layer>
             </Stage>
 
-            {/* Información del Delta y Estrella en la misma línea */}
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: `${separation * 2}px`,
-                    marginTop: "30px",
-                    color: "#ffb703",
-                    fontFamily: "'Poppins', sans-serif",
-                }}
-            >
-                {/* Información del Delta */}
+            <div className="result-container">
                 <div>
                     <h3>Valores de Delta</h3>
-                    <p>A: {formatNumber(R1)}</p>
-                    <p>B: {formatNumber(R2)}</p>
-                    <p>C: {formatNumber(R3)}</p>
+                    <p>A: {formatNumber(parseInput(A))}</p>
+                    <p>B: {formatNumber(parseInput(B))}</p>
+                    <p>C: {formatNumber(parseInput(C))}</p>
                 </div>
 
-                {/* Información de la Estrella */}
-                <div style={{ color: "#fb8500" }}>
-                    <h3>Valores de Estrella</h3>
-                    <p>a: {result ? formatNumber(result.Ra) : ""}</p>
-                    <p>b: {result ? formatNumber(result.Rb) : ""}</p>
-                    <p>c: {result ? formatNumber(result.Rc) : ""}</p>
-                </div>
+                {result && (
+                    <div>
+                        <h3>Resultados de Estrella</h3>
+                        <p>a: {formatNumber(result.a)}</p>
+                        <p>b: {formatNumber(result.b)}</p>
+                        <p>c: {formatNumber(result.c)}</p>
+                    </div>
+                )}
             </div>
+
+            <div className="procedure">
+    <h3>Procedimiento paso a paso:</h3>
+    <ol>
+        <li>
+            <strong>Introducción de valores:</strong> Los valores ingresados son:
+            <ul>
+                <li>A = {formatNumber(parseInput(A))}</li>
+                <li>B = {formatNumber(parseInput(B))}</li>
+                <li>C = {formatNumber(parseInput(C))}</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Cálculo de la resistencia en estrella:</strong>
+            <br />
+            <code>a = (B * C) / (A + B + C) = ({formatNumber(parseInput(B))} * {formatNumber(parseInput(C))}) / ({formatNumber(parseInput(A))} + {formatNumber(parseInput(B))} + {formatNumber(parseInput(C))})</code>
+            <br />
+            <code>b = (C * A) / (A + B + C) = ({formatNumber(parseInput(C))} * {formatNumber(parseInput(A))}) / ({formatNumber(parseInput(A))} + {formatNumber(parseInput(B))} + {formatNumber(parseInput(C))})</code>
+            <br />
+            <code>c = (A * B) / (A + B + C) = ({formatNumber(parseInput(A))} * {formatNumber(parseInput(B))}) / ({formatNumber(parseInput(A))} + {formatNumber(parseInput(B))} + {formatNumber(parseInput(C))})</code>
+        </li>
+        <li>
+            <strong>Visualización:</strong> Se muestra una representación visual del triángulo Delta con valores para A, B y C, así como la estrella con los valores a, b y c.
+        </li>
+    </ol>
+</div>
+
         </div>
     );
 };

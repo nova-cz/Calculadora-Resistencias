@@ -1,0 +1,27 @@
+.simulation-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    height: 100vh;
+}
+
+.add-resistor-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.add-resistor-btn:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #333;
+}

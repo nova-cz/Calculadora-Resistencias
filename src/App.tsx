@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./index.css";
-import DeltaToStar from './componentes/DeltaToStar'; // Corrección de la ruta y nombre
-import StarToDelta from "./componentes/StarToDelta";
-import SeriesResistance from "./componentes/SeriesResistance";
-import ParallelResistance from "./componentes/ParallelResistance";
+import DeltaToStar from './componentes/DeltaToStar';
+import StarToDelta from './componentes/StarToDelta';
+import SeriesResistance from './componentes/SeriesResistance';
+import ParallelResistance from './componentes/ParallelResistance';
+
 
 const App: React.FC = () => {
     const [option, setOption] = useState<number | null>(null);
 
-    // Función para renderizar el componente basado en la opción seleccionada
     const renderOption = () => {
         switch (option) {
             case 1:
@@ -25,17 +25,73 @@ const App: React.FC = () => {
         }
     };
 
+    // Animación para que las letras "floten"
+    const floatingAnimation = {
+        initial: { y: 0 },
+        animate: {
+            y: [0, -10, 0], // Se moverá hacia arriba y abajo
+            transition: {
+                y: {
+                    repeat: Infinity,  // Repite infinitamente
+                    duration: 2,       // Duración de un ciclo
+                    ease: "easeInOut"  // Tipo de animación
+                }
+            }
+        }
+    };
+
+    // Manejar el clic en los botones para mostrar su valor
+    const handleClick = (value: number) => {
+        setOption(value);
+    };
+
     return (
         <div className="App">
             <h1>Calculadora de Resistencias</h1>
-            <motion.div className="menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <button onClick={() => setOption(1)}>Delta a Estrella</button>
-                <button onClick={() => setOption(2)}>Estrella a Delta</button>
-                <button onClick={() => setOption(3)}>Resistencias en Serie</button>
-                <button onClick={() => setOption(4)}>Resistencias en Paralelo</button>
-                <button onClick={() => setOption(null)}>Reiniciar</button>
+            <motion.div 
+                className="menu" 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }}
+            >
+                <motion.button 
+                    onClick={() => handleClick(1)} 
+                    variants={floatingAnimation}
+                    whileHover={{ scale: 1.1 }} // Efecto de hover (aumenta el tamaño)
+                >
+                    Delta a Estrella
+                </motion.button>
+                <motion.button 
+                    onClick={() => handleClick(2)} 
+                    variants={floatingAnimation}
+                    whileHover={{ scale: 1.1 }}
+                >
+                    Estrella a Delta
+                </motion.button>
+                <motion.button 
+                    onClick={() => handleClick(3)} 
+                    variants={floatingAnimation}
+                    whileHover={{ scale: 1.1 }}
+                >
+                    Resistencias en Serie
+                </motion.button>
+                <motion.button 
+                    onClick={() => handleClick(4)} 
+                    variants={floatingAnimation}
+                    whileHover={{ scale: 1.1 }}
+                >
+                    Resistencias en Paralelo
+                </motion.button>
+                <motion.button 
+                    onClick={() => handleClick(5)} 
+                    variants={floatingAnimation}
+                    whileHover={{ scale: 1.1 }}
+                >
+                    Reiniciar
+                </motion.button>
             </motion.div>
-            <div className="content">{renderOption()}</div>
+            <div className="content">
+                {renderOption()}
+            </div>
         </div>
     );
 };
