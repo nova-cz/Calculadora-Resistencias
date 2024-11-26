@@ -1,98 +1,44 @@
+/* Contenedor principal */
 .body-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-family: 'Quicksand', sans-serif; /* Cambia aquí la fuente */
+    font-family: 'Quicksand', sans-serif;
     margin-bottom: 20px;
 }
 
+/* Contenedor de los inputs */
 .input-container {
-    margin-top: 50px; /* Agregar margen superior para separar el título de los inputs */
+    margin-top: 50px;
     margin-bottom: 30px;
 }
 
+/* Estilos para las etiquetas de los inputs */
 .input-container label {
-    
     font-size: 16px;
     margin-right: 10px;
 }
 
+/* Estilos para los campos de input */
 .input-container input {
     margin-top: 5px;
     margin-right: 10px;
     padding: 5px;
     font-size: 14px;
     width: 100px;
-}
-
-.input-container button {
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-    background-color: #008CBA;
-    color: white;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border-color 0.3s ease;
 }
 
-.input-container button:hover {
-    background-color: #005f73;
+.input-container input:focus {
+    border-color: #008CBA; /* Cambio de color al enfocarse */
+    outline: none;
 }
 
-.result-container {
-    margin-top: 20px;
-}
-
-.result-container h3 {
-    margin-bottom: 1px;
-}
-
-.procedure {
-    margin-top: 30px;
-    max-width: 600px;
-    text-align: left;
-}
-
-.procedure h3 {
-    margin-bottom: 10px;
-}
-
-.procedure ol {
-    margin-left: 20px;
-}
-
-.procedure ul {
-    list-style-type: none; /* Elimina los círculos */
-    padding-left: 0; /* Elimina la indentación por defecto */
-}
-
-.procedure li {
-    margin-bottom: 5px; /* Espaciado entre los elementos de la lista */
-}
-
-/* Animación para hacer que el resultado aparezca */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px); /* Comienza desde arriba */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0); /* Llega a su posición original */
-    }
-}
-
-.result-container {
-    margin-top: 0px;
-    animation: fadeIn 1s ease-out; /* Aplicamos la animación */
-}
-
-.result-container h3 {
-    margin-bottom: 10px;
-}
-
+/* Estilos para el botón */
 .input-container button {
     padding: 5px 10px;
     font-size: 14px;
@@ -106,26 +52,44 @@
 
 .input-container button:hover {
     background-color: #005f73;
-    transform: translateY(-2px); /* Sube un poco el botón */
+    transform: translateY(-2px);
 }
 
 .input-container button:active {
-    transform: translateY(1px); /* Bajo el botón cuando se hace clic */
+    transform: translateY(1px);
 }
 
-/* Animación para los elementos de la lista */
-@keyframes listItemFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateX(-20px); /* Aparece desde la izquierda */
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* Contenedor de resultados */
+.result-container {
+    margin-top: 20px;
+    animation: fadeIn 1s ease-out;
 }
 
-/* Aplicamos la animación a cada item de la lista */
+.result-container h3 {
+    margin-bottom: 10px;
+}
+
+/* Procedimiento - Estilos generales */
+.procedure {
+    margin-top: 30px;
+    max-width: 600px;
+    text-align: left;
+}
+
+.procedure h3 {
+    margin-bottom: 10px;
+}
+
+/* Listas dentro del procedimiento */
+.procedure ol {
+    margin-left: 20px;
+}
+
+.procedure ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
 .procedure li {
     margin-bottom: 5px;
     animation: listItemFadeIn 0.6s ease-out;
@@ -145,4 +109,90 @@
 
 .procedure li:nth-child(4) {
     animation-delay: 0.6s;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes listItemFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Media Queries para hacerlo responsivo */
+@media (max-width: 600px) {
+    .body-container {
+        padding: 10px;
+    }
+
+    .input-container input {
+        width: 80px;
+    }
+
+    .input-container button {
+        width: 100%; /* Botón ocupa todo el ancho en pantallas pequeñas */
+        padding: 8px;
+    }
+
+    .procedure {
+        padding: 0 10px;
+        max-width: 100%;
+    }
+
+    .procedure li {
+        font-size: 14px; /* Reducir el tamaño de fuente en móviles */
+    }
+
+    .result-container h3 {
+        font-size: 18px; /* Ajustar tamaño del título */
+    }
+}
+
+/* Estilos para tabletas (max-width: 768px) */
+@media (max-width: 768px) {
+    .body-container {
+        padding: 15px;
+    }
+
+    .input-container input {
+        width: 90px;
+    }
+
+    .input-container button {
+        width: 100%;
+    }
+
+    .procedure li {
+        font-size: 15px;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 1200px) {
+    .body-container {
+        padding: 20px;
+    }
+
+    .input-container button {
+        padding: 5px 15px;
+    }
+
+    .procedure li {
+        font-size: 16px;
+    }
 }
