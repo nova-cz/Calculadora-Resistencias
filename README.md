@@ -22,7 +22,7 @@ Esta aplicación es una herramienta interactiva que te permite calcular el valor
 ## Ver la Aplicación en Línea
 
 Haz clic aquí para acceder a la calculadora:  
-[Calculadora de Resistencias](https://nova-cz.github.io/Calculadora-Resistencias/)
+[Calculadora de Resistencias]()
 
 ## Scripts Disponibles
 
@@ -40,11 +40,6 @@ También verás errores y advertencias en la consola.
 
 Construye la aplicación para producción en la carpeta `build`.\
 Optimiza el código para un mejor rendimiento.
-
-### `npm test`
-
-Lanza el corredor de pruebas en modo interactivo.\
-Consulta más información sobre [pruebas en React](https://facebook.github.io/create-react-app/docs/running-tests).
 
 ## Requisitos
 
