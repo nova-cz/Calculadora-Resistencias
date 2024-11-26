@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Calculadora-Resistencias/static/css/main.97dc7d6e.css",
+    "main.js": "/Calculadora-Resistencias/static/js/main.2467d07c.js",
+    "index.html": "/Calculadora-Resistencias/index.html",
+    "main.97dc7d6e.css.map": "/Calculadora-Resistencias/static/css/main.97dc7d6e.css.map",
+    "main.2467d07c.js.map": "/Calculadora-Resistencias/static/js/main.2467d07c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.97dc7d6e.css",
+    "static/js/main.2467d07c.js"
+  ]
+}
