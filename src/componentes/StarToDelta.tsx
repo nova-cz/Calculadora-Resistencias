@@ -42,9 +42,9 @@ const StarToDelta: React.FC = () => {
         const parsedC = parseInput(c);
         const suma = parsedA * parsedB + parsedB * parsedC + parsedC * parsedA;
         setResult({
-            A: suma / parsedC,
-            B: suma / parsedA,
-            C: suma / parsedB,
+            A: suma / parsedA,
+            B: suma / parsedB,
+            C: suma / parsedC,
         });
     };
 
@@ -223,6 +223,7 @@ const StarToDelta: React.FC = () => {
                         <p>C: {formatNumber(result.C)}</p>
                     </div>
                 )}
+
             </div>
 
             <div className="procedure">
@@ -239,11 +240,11 @@ const StarToDelta: React.FC = () => {
                     <li>
                         <strong>Cálculo de la resistencia en Delta:</strong>
                         <br />
-                        <code>A = (a * b + b * c + c * a) / c = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(c))}</code>
+                        <code>A = (a * b + b * c + c * a) / a = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(a))}</code>
                         <br />
-                        <code>B = (a * b + b * c + c * a) / a = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(a))}</code>
+                        <code>B = (a * b + b * c + c * a) / b = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(b))}</code>
                         <br />
-                        <code>C = (a * b + b * c + c * a) / b = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(b))}</code>
+                        <code>C = (a * b + b * c + c * a) / c = ({formatNumber(parseInput(a))} * {formatNumber(parseInput(b))} + {formatNumber(parseInput(b))} * {formatNumber(parseInput(c))} + {formatNumber(parseInput(c))} * {formatNumber(parseInput(a))}) / {formatNumber(parseInput(c))}</code>
                     </li>
                     <li>
                         <strong>Visualización:</strong> Se muestra una representación visual del triángulo Delta con valores para A, B y C, así como la estrella con los valores a, b y c.
