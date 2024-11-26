@@ -1,46 +1,64 @@
-# Getting Started with Create React App
+# Calculadora de Resistencias
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Portada](src/portada/portada.png)
 
-## Available Scripts
+Esta aplicación es una herramienta interactiva que te permite calcular el valor total de resistencias eléctricas conectadas en serie o paralelo. Es ideal para estudiantes, ingenieros o cualquier persona interesada en circuitos eléctricos.
 
-In the project directory, you can run:
+## Tecnologías Utilizadas
+
+- **React**: Framework de JavaScript para la creación de interfaces de usuario dinámicas.
+- **CSS**: Para estilizar la aplicación con un diseño limpio y responsivo.
+- **JavaScript**: Lógica principal de los cálculos de las resistencias.
+- **HTML**: Estructura base de la aplicación.
+- **GitHub Pages**: Para el despliegue de la aplicación en línea.
+
+## Características
+
+- **Modo Serie**: Calcula la resistencia equivalente para resistencias conectadas en serie.
+- **Modo Paralelo**: Calcula la resistencia equivalente para resistencias conectadas en paralelo.
+- **Interfaz amigable**: Fácil de usar, con un diseño responsivo adaptado para dispositivos móviles y de escritorio.
+- **Animaciones suaves**: Efectos visuales para mejorar la experiencia del usuario.
+
+## Ver la Aplicación en Línea
+
+Haz clic aquí para acceder a la calculadora:  
+[Calculadora de Resistencias](https://nova-cz.github.io/Calculadora-Resistencias/)
+
+## Scripts Disponibles
+
+En el directorio del proyecto, puedes ejecutar los siguientes comandos:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Ejecuta la aplicación en modo de desarrollo.\
+Abre [http://localhost:3000](http://localhost:3000) para verla en tu navegador.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+La página se recargará automáticamente si haces cambios en el código.\
+También verás errores y advertencias en la consola.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Construye la aplicación para producción en la carpeta `build`.\
+Optimiza el código para un mejor rendimiento.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Lanza el corredor de pruebas en modo interactivo.\
+Consulta más información sobre [pruebas en React](https://facebook.github.io/create-react-app/docs/running-tests).
 
-### `npm run eject`
+## Requisitos
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Para ejecutar el proyecto localmente, necesitas:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Node.js y npm instalados.
+- Un navegador moderno.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Estructura del Proyecto
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **`src/portada/portada.png`**: Imagen utilizada como portada en este README.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Si tienes alguna sugerencia o problema, no dudes en abrir un issue o contribuir al proyecto.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+¡Gracias por usar la calculadora!
