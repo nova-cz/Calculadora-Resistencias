@@ -1,20 +1,20 @@
+/* Estilos generales */
 .body-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-family: 'Quicksand', sans-serif; /* Cambia aquí la fuente */
+    font-family: 'Quicksand', sans-serif;
     margin-bottom: 20px;
 }
 
 .input-container {
-    margin-top: 50px; /* Agregar margen superior para separar el título de los inputs */
+    margin-top: 50px;
     margin-bottom: 30px;
 }
 
 .input-container label {
-    
     font-size: 16px;
     margin-right: 10px;
 }
@@ -64,33 +64,29 @@
 }
 
 .procedure ul {
-    list-style-type: none; /* Elimina los círculos */
-    padding-left: 0; /* Elimina la indentación por defecto */
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .procedure li {
-    margin-bottom: 5px; /* Espaciado entre los elementos de la lista */
+    margin-bottom: 5px;
 }
 
 /* Animación para hacer que el resultado aparezca */
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(-20px); /* Comienza desde arriba */
+        transform: translateY(-20px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0); /* Llega a su posición original */
+        transform: translateY(0);
     }
 }
 
 .result-container {
     margin-top: 0px;
-    animation: fadeIn 1s ease-out; /* Aplicamos la animación */
-}
-
-.result-container h3 {
-    margin-bottom: 10px;
+    animation: fadeIn 1s ease-out;
 }
 
 .input-container button {
@@ -106,18 +102,18 @@
 
 .input-container button:hover {
     background-color: #005f73;
-    transform: translateY(-2px); /* Sube un poco el botón */
+    transform: translateY(-2px);
 }
 
 .input-container button:active {
-    transform: translateY(1px); /* Bajo el botón cuando se hace clic */
+    transform: translateY(1px);
 }
 
 /* Animación para los elementos de la lista */
 @keyframes listItemFadeIn {
     0% {
         opacity: 0;
-        transform: translateX(-20px); /* Aparece desde la izquierda */
+        transform: translateX(-20px);
     }
     100% {
         opacity: 1;
@@ -125,7 +121,6 @@
     }
 }
 
-/* Aplicamos la animación a cada item de la lista */
 .procedure li {
     margin-bottom: 5px;
     animation: listItemFadeIn 0.6s ease-out;
@@ -145,4 +140,70 @@
 
 .procedure li:nth-child(4) {
     animation-delay: 0.6s;
+}
+
+/* Media Queries para hacer el diseño responsive */
+
+/* Estilos para dispositivos pequeños (móviles) */
+@media (max-width: 480px) {
+    .input-container input {
+        width: 80px; /* Reducir el tamaño de los inputs */
+    }
+
+    .input-container button {
+        font-size: 12px; /* Reducir el tamaño del botón */
+        padding: 4px 8px; /* Ajustar el padding */
+    }
+
+    .procedure {
+        max-width: 100%; /* El procedimiento ocupa todo el ancho disponible */
+    }
+
+    .procedure h3 {
+        font-size: 18px; /* Reducir tamaño de título */
+    }
+
+    .result-container {
+        margin-top: 20px;
+    }
+}
+
+/* Estilos para dispositivos medianos (tabletas) */
+@media (max-width: 768px) {
+    .input-container input {
+        width: 120px; /* Ajustar el ancho de los inputs */
+    }
+
+    .input-container button {
+        font-size: 14px; /* Ajustar tamaño de fuente */
+        padding: 6px 12px;
+    }
+
+    .procedure {
+        max-width: 80%; /* El procedimiento ocupa el 80% del ancho */
+    }
+
+    .result-container {
+        margin-top: 15px;
+    }
+}
+
+/* Estilos para dispositivos grandes (escritorios) */
+@media (min-width: 1024px) {
+    .input-container input {
+        width: 150px; /* Inputs más grandes */
+    }
+
+    .input-container button {
+        font-size: 16px; /* Aumentar tamaño de fuente */
+        padding: 8px 15px; /* Botones más grandes */
+    }
+
+    .procedure {
+        max-width: 60%; /* El procedimiento ocupa el 60% del ancho */
+    }
+
+    .result-container {
+        margin-top: 25px;
+    }
 }

@@ -1,5 +1,3 @@
-/* index.css */
-
 /* Reiniciar márgenes y rellenos globalmente */
 *,
 *::before,
@@ -23,6 +21,7 @@ body {
   text-align: center;
   margin: 0 auto; /* Centra la app */
   padding: 20px;
+  max-width: 1200px; /* Limitar el ancho máximo para pantallas grandes */
 }
 
 /* Estilo del encabezado */
@@ -106,4 +105,58 @@ button span {
 
 .modal button:hover {
   background-color: #e76f51;
+}
+
+/* Media Queries para hacerlo responsivo */
+
+/* Para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  .App h1 {
+    font-size: 24px;
+  }
+
+  .menu {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Para pantallas medianas (tablets y iPads) */
+@media (max-width: 768px) {
+  .App h1 {
+    font-size: 28px;
+  }
+
+  .menu {
+    padding: 18px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 9px 18px;
+  }
+}
+
+/* Para pantallas grandes (laptops y escritorios) */
+@media (min-width: 1200px) {
+  .App {
+    padding: 40px;
+  }
+
+  .App h1 {
+    font-size: 40px;
+  }
+
+  .menu {
+    padding: 25px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
 }
