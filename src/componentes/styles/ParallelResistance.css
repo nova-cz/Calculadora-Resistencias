@@ -1,84 +1,76 @@
-/* Estilo para el contenedor de procedimiento */
 .procedure-container {
-    background-color: #264653; /* Fondo oscuro */
+    background-color: #264653;
     padding: 20px;
     border-radius: 10px;
     margin-top: 20px;
-    color: #ffb703; /* Color de texto dorado */
+    color: #ffb703;
     font-family: 'Poppins', sans-serif;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para resaltar el contenedor */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Título del contenedor */
 .procedure-container h3 {
     margin-bottom: 10px;
     font-size: 1.25rem;
     font-weight: bold;
 }
 
-/* Párrafos dentro del contenedor */
 .procedure-container p {
     font-size: 1rem;
     margin: 10px 0;
     line-height: 1.5;
 }
 
-/* Estilo para listas sin viñetas */
 .procedure-container ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-/* Estilo para los elementos de la lista */
 .procedure-container ul li {
     margin: 5px 0;
     font-size: 1rem;
 }
 
-/* Media Queries para hacerlo responsivo */
 @media (max-width: 600px) {
     .procedure-container {
-        padding: 15px; /* Reducir padding en móviles */
+        padding: 15px;
     }
 
     .procedure-container h3 {
-        font-size: 1.1rem; /* Reducir el tamaño del título */
+        font-size: 1.1rem;
     }
 
     .procedure-container p,
     .procedure-container ul li {
-        font-size: 0.9rem; /* Reducir tamaño de fuente en móviles */
+        font-size: 0.9rem;
     }
 }
 
-/* Estilos para tabletas (max-width: 768px) */
 @media (max-width: 768px) {
     .procedure-container {
-        padding: 18px; /* Ajustar padding */
+        padding: 18px;
     }
 
     .procedure-container h3 {
-        font-size: 1.2rem; /* Ajuste de tamaño del título */
+        font-size: 1.2rem;
     }
 
     .procedure-container p,
     .procedure-container ul li {
-        font-size: 0.95rem; /* Ajuste de tamaño de fuente */
+        font-size: 0.95rem;
     }
 }
 
-/* Estilos para pantallas grandes */
 @media (min-width: 1200px) {
     .procedure-container {
-        padding: 25px; /* Espacio adicional para pantallas grandes */
+        padding: 25px;
     }
 
     .procedure-container h3 {
-        font-size: 1.5rem; /* Aumento de tamaño del título */
+        font-size: 1.5rem;
     }
 
     .procedure-container p,
     .procedure-container ul li {
-        font-size: 1.1rem; /* Aumento del tamaño de fuente */
+        font-size: 1.1rem;
     }
 }

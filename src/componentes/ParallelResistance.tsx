@@ -10,7 +10,6 @@ const ParallelResistance: React.FC = () => {
 
     const processInput = (input: string): number[] => {
         return input.split(",").map((val) => {
-            // Eliminar espacios y verificar si contiene 'k'
             const cleanedVal = val.trim().toLowerCase();
             if (cleanedVal.endsWith("k")) {
                 const num = parseFloat(cleanedVal.replace("k", "").trim());
@@ -23,7 +22,6 @@ const ParallelResistance: React.FC = () => {
     const calculate = () => {
         const resistances = processInput(values);
 
-        // Verificar si hay valores no válidos o ceros
         if (resistances.some(isNaN) || resistances.includes(0)) {
             setError("Por favor ingresa solo valores numéricos válidos (no ceros).");
             setResult(null);
@@ -43,7 +41,6 @@ const ParallelResistance: React.FC = () => {
 
     const resistances = processInput(values).filter((r) => !isNaN(r));
 
-    // Construir la fórmula de la resistencia equivalente mostrando los valores
     const formula = resistances
         .map((r) => `1 / ${r}`)
         .join(" + ");
@@ -86,7 +83,6 @@ const ParallelResistance: React.FC = () => {
 
             <Stage width={stageWidth} height={stageHeight}>
                 <Layer>
-                    {/* Línea principal vertical */}
                     <Line
                         points={[150, 50, 150, 50 + resistances.length * resistorGap]}
                         stroke="#8ecae6"
@@ -95,13 +91,11 @@ const ParallelResistance: React.FC = () => {
 
                     {resistances.map((resistance, index) => (
                         <React.Fragment key={index}>
-                            {/* Rama de conexión horizontal superior */}
                             <Line
                                 points={[150, 50 + index * resistorGap, 150 + resistorWidth, 50 + index * resistorGap]}
                                 stroke="#8ecae6"
                                 strokeWidth={3}
                             />
-                            {/* Resistencia */}
                             <Rect
                                 x={150 + resistorWidth}
                                 y={50 + index * resistorGap - resistorHeight / 2}
@@ -109,7 +103,6 @@ const ParallelResistance: React.FC = () => {
                                 height={resistorHeight}
                                 fill="#ffb703"
                             />
-                            {/* Etiqueta de resistencia */}
                             <Text
                                 text={`R${index + 1} = ${resistance} Ω`}
                                 x={150 + 2 * resistorWidth + 10}
@@ -117,7 +110,6 @@ const ParallelResistance: React.FC = () => {
                                 fontSize={14}
                                 fill="#fb8500"
                             />
-                            {/* Rama de conexión horizontal inferior */}
                             <Line
                                 points={[
                                     150 + resistorWidth,
@@ -131,7 +123,6 @@ const ParallelResistance: React.FC = () => {
                         </React.Fragment>
                     ))}
 
-                    {/* Línea final vertical */}
                     <Line
                         points={[150 + 2 * resistorWidth, 50, 150 + 2 * resistorWidth, 50 + resistances.length * resistorGap]}
                         stroke="#8ecae6"
@@ -140,7 +131,6 @@ const ParallelResistance: React.FC = () => {
                 </Layer>
             </Stage>
 
-            {/* Procedimiento debajo del diagrama */}
             {result !== null && (
                 <div className="procedure-container">
                     <h3>Procedimiento de Cálculo:</h3>

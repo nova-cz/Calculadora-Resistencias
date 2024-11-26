@@ -25,22 +25,20 @@ const App: React.FC = () => {
         }
     };
 
-    // Animación para que las letras "floten"
     const floatingAnimation = {
         initial: { y: 0 },
         animate: {
-            y: [0, -10, 0], // Se moverá hacia arriba y abajo
+            y: [0, -10, 0], 
             transition: {
                 y: {
-                    repeat: Infinity,  // Repite infinitamente
-                    duration: 2,       // Duración de un ciclo
-                    ease: "easeInOut"  // Tipo de animación
+                    repeat: Infinity,  
+                    duration: 2,       
+                    ease: "easeInOut"  
                 }
             }
         }
     };
 
-    // Manejar el clic en los botones para mostrar su valor
     const handleClick = (value: number) => {
         setOption(value);
     };
@@ -56,7 +54,7 @@ const App: React.FC = () => {
                 <motion.button 
                     onClick={() => handleClick(1)} 
                     variants={floatingAnimation}
-                    whileHover={{ scale: 1.1 }} // Efecto de hover (aumenta el tamaño)
+                    whileHover={{ scale: 1.1 }}
                 >
                     Delta a Estrella
                 </motion.button>

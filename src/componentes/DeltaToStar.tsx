@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Stage, Layer, Line, Text } from "react-konva";
 import { motion } from "framer-motion";
-import './styles/deltatoStar.css'; // Importa el archivo CSS
+import './styles/deltatoStar.css'; 
 
 
 const DeltaToStarWithValues: React.FC = () => {
@@ -12,12 +12,11 @@ const DeltaToStarWithValues: React.FC = () => {
 
     const parseInput = (input: string): number => {
         const sanitized = input.trim().toLowerCase();
-        // Expresión regular: números enteros o decimales opcionales, con sufijos "k/m" opcionales
         const regex = /^(\d+(\.\d+)?)([km]?)$/;
         const match = sanitized.match(regex);
 
         if (!match) {
-            return 0; // Si no coincide con el formato esperado, devolver 0
+            return 0; 
         }
 
         const value = parseFloat(match[1]);
@@ -28,9 +27,8 @@ const DeltaToStarWithValues: React.FC = () => {
         return value;
     };
 
-    // Controlador de eventos para filtrar entrada en tiempo real
     const handleInputChange = (index: number, value: string) => {
-        const sanitizedValue = value.replace(/[^0-9km.]/gi, ""); // Permite solo números, 'k', 'm', '.'
+        const sanitizedValue = value.replace(/[^0-9km.]/gi, ""); 
         if (index === 0) setA(sanitizedValue);
         else if (index === 1) setB(sanitizedValue);
         else if (index === 2) setC(sanitizedValue);
@@ -57,13 +55,13 @@ const DeltaToStarWithValues: React.FC = () => {
     const floatingAnimation = {
         initial: { y: 0, scale: 1 },
         animate: {
-            y: [0, -15, 0], // Se moverá hacia arriba y abajo
-            scale: [1, 1.2, 1], // Escala ligeramente las letras
+            y: [0, -15, 0], 
+            scale: [1, 1.2, 1], 
             transition: {
                 y: {
-                    repeat: Infinity,  // Repite infinitamente
-                    duration: 1,       // Duración de un ciclo
-                    ease: "easeInOut"  // Tipo de animación
+                    repeat: Infinity,  
+                    duration: 1,       
+                    ease: "easeInOut"  
                 },
                 scale: {
                     repeat: Infinity,
@@ -80,10 +78,8 @@ const DeltaToStarWithValues: React.FC = () => {
     const centerY = stageHeight / 2;
     const separation = 220;
 
-    // Estado para mostrar la información de la letra
     const [info, setInfo] = useState<string | null>(null);
 
-    // Función para manejar el clic en las letras
     const handleClick = (letter: string) => {
         let infoText = '';
         switch (letter) {
@@ -158,7 +154,6 @@ const DeltaToStarWithValues: React.FC = () => {
                             strokeWidth={3}
                         />
 
-                        {/* Líneas de la estrella */}
                         <Line
                             points={[centerX + 190 + separation, centerY - 50, centerX + 190 + separation, centerY + 50]}
                             stroke="#8ecae6"
@@ -175,7 +170,6 @@ const DeltaToStarWithValues: React.FC = () => {
                             strokeWidth={3}
                         />
 
-                        {/* Letras para el triángulo Delta */}
                         <Text
                             text="A"
                             x={(centerX - 50 - separation + centerX - 250 - separation) / 2 - 10 + 100}
@@ -204,7 +198,6 @@ const DeltaToStarWithValues: React.FC = () => {
                             onClick={() => handleClick('C')}
                         />
 
-                        {/* Letras para la estrella */}
                         <Text
                             text="a"
                             x={centerX + 140 + separation + 44}

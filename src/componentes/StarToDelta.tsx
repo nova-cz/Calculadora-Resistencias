@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Stage, Layer, Line, Text } from "react-konva";
 import { motion } from "framer-motion";
-import "./styles/StarToDelta.css"; // Asegúrate de importar el archivo CSS
+import "./styles/StarToDelta.css"; 
 
 const StarToDelta: React.FC = () => {
     const [a, setA] = useState<string>("0");
@@ -9,14 +9,13 @@ const StarToDelta: React.FC = () => {
     const [c, setC] = useState<string>("0");
     const [result, setResult] = useState<{ A: number; B: number; C: number } | null>(null);
 
-    // Función para parsear la entrada con las unidades
     const parseInput = (input: string): number => {
         const sanitized = input.trim().toLowerCase();
         const regex = /^(\d+(\.\d+)?)([km]?)$/;
         const match = sanitized.match(regex);
 
         if (!match) {
-            return 0; // Si no coincide con el formato esperado, devolver 0
+            return 0; 
         }
 
         const value = parseFloat(match[1]);
@@ -27,15 +26,13 @@ const StarToDelta: React.FC = () => {
         return value;
     };
 
-    // Controlador de eventos para filtrar entrada en tiempo real
     const handleInputChange = (index: number, value: string) => {
-        const sanitizedValue = value.replace(/[^0-9km.]/gi, ""); // Permite solo números, 'k', 'm', '.'
+        const sanitizedValue = value.replace(/[^0-9km.]/gi, ""); 
         if (index === 0) setA(sanitizedValue);
         else if (index === 1) setB(sanitizedValue);
         else if (index === 2) setC(sanitizedValue);
     };
 
-    // Cálculo de las resistencias en el sistema Delta
     const calculate = () => {
         const parsedA = parseInput(a);
         const parsedB = parseInput(b);
@@ -60,10 +57,8 @@ const StarToDelta: React.FC = () => {
     const centerY = stageHeight / 2;
     const separation = 220;
 
-    // Estado para mostrar la información de la letra
     const [info, setInfo] = useState<string | null>(null);
 
-    // Función para manejar el clic en las letras
     const handleClick = (letter: string) => {
         let infoText = '';
         switch (letter) {
@@ -121,7 +116,6 @@ const StarToDelta: React.FC = () => {
 
             <Stage width={stageWidth} height={stageHeight}>
                 <Layer>
-                    {/* Representación visual de la estrella */}
                     <Line
                         points={[centerX - 150 - separation, centerY - 50, centerX - 150 - separation, centerY + 50]}
                         stroke="#8ecae6"
@@ -155,7 +149,6 @@ const StarToDelta: React.FC = () => {
                 </Layer>
 
                 <Layer>
-                    {/* Nombres de las resistencias en la figura Estrella */}
                     <Text
                         text="a"
                         x={centerX - 154 - separation}

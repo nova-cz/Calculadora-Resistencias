@@ -1,4 +1,3 @@
-/* Estilo general para el contenedor principal */
 .body-container {
     display: flex;
     flex-direction: column;
@@ -9,19 +8,16 @@
     margin-bottom: 20px;
 }
 
-/* Estilo para el contenedor de los inputs */
 .input-container {
     margin-top: 50px;
     margin-bottom: 30px;
 }
 
-/* Etiquetas de los inputs */
 .input-container label {
     font-size: 16px;
     margin-right: 10px;
 }
 
-/* Estilo para los inputs */
 .input-container input {
     margin-top: 5px;
     margin-right: 10px;
@@ -30,7 +26,6 @@
     width: 100px;
 }
 
-/* Botones */
 .input-container button {
     padding: 5px 10px;
     font-size: 14px;
@@ -51,7 +46,6 @@
     transform: translateY(1px);
 }
 
-/* Contenedor de los resultados */
 .result-container {
     margin-top: 20px;
     animation: fadeIn 1s ease-out;
@@ -61,7 +55,6 @@
     margin-bottom: 10px;
 }
 
-/* Estilo para la sección del procedimiento */
 .procedure {
     margin-top: 30px;
     max-width: 600px;
@@ -77,7 +70,6 @@
     padding-left: 0;
 }
 
-/* Elementos de la lista del procedimiento con animación */
 .procedure li {
     margin-bottom: 5px;
     animation: listItemFadeIn 0.6s ease-out;
@@ -99,7 +91,6 @@
     animation-delay: 0.6s;
 }
 
-/* Animación para la entrada de los resultados */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -111,7 +102,6 @@
     }
 }
 
-/* Animación de los elementos de la lista */
 @keyframes listItemFadeIn {
     0% {
         opacity: 0;
@@ -123,7 +113,6 @@
     }
 }
 
-/* Estilo para el contenedor del procedimiento */
 .procedure-container {
     background-color: #264653;
     padding: 20px;
@@ -153,79 +142,74 @@
     animation: listItemFadeIn 0.6s ease-out;
 }
 
-/* Media Queries para responsividad */
-
-/* Para dispositivos pequeños (móviles) */
 @media (max-width: 600px) {
     .body-container {
-        padding: 15px; /* Ajustar el padding en móviles */
+        padding: 15px;
     }
 
     .input-container input {
-        width: 80px; /* Reducir el tamaño del input */
+        width: 80px;
     }
 
     .input-container button {
-        padding: 4px 8px; /* Reducir tamaño del botón */
+        padding: 4px 8px;
     }
 
     .procedure {
-        max-width: 100%; /* Asegura que el procedimiento no se corte en pantallas pequeñas */
+        max-width: 100%;
     }
 
     .procedure-container {
-        padding: 15px; /* Reducir padding en móviles */
+        padding: 15px;
     }
 
     .procedure-container h3 {
-        font-size: 1.1rem; /* Reducir tamaño de título */
+        font-size: 1.1rem;
     }
 
     .procedure-container p {
-        font-size: 0.9rem; /* Reducir tamaño de fuente en párrafos */
+        font-size: 0.9rem;
     }
 
     .procedure-container li {
-        font-size: 0.9rem; /* Reducir tamaño de fuente de lista */
+        font-size: 0.9rem;
     }
 }
 
-/* Para tabletas */
 @media (max-width: 768px) {
     .body-container {
-        padding: 18px; /* Ajustar padding en tabletas */
+        padding: 18px;
     }
 
     .procedure-container {
-        padding: 18px; /* Ajustar padding en tabletas */
+        padding: 18px;
     }
 
     .procedure-container h3 {
-        font-size: 1.2rem; /* Ajustar tamaño de título */
+        font-size: 1.2rem;
     }
 
     .procedure-container p,
     .procedure-container li {
-        font-size: 1rem; /* Ajustar tamaño de texto */
+        font-size: 1rem;
     }
 }
 
-/* Para pantallas grandes */
 @media (min-width: 1200px) {
     .body-container {
-        padding: 30px; /* Mayor padding en pantallas grandes */
+        padding: 30px;
     }
 
     .procedure-container {
-        padding: 25px; /* Más padding en pantallas grandes */
+        padding: 25px;
     }
 
     .procedure-container h3 {
-        font-size: 1.5rem; /* Mayor tamaño de título */
+        font-size: 1.5rem;
     }
 
     .procedure-container p,
     .procedure-container li {
-        font-size: 1.1rem; /* Mayor tamaño de fuente */
+        font-size: 1.1rem;
     }
 }
