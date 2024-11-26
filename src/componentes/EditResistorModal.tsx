@@ -20,7 +20,7 @@ const EditResistorModal: React.FC<EditResistorModalProps> = ({
 
   const handleSubmit = () => {
     onUpdateResistor(name, value);
-    onRequestClose();  // Cerrar el modal
+    onRequestClose(); 
   };
 
   if (!isOpen) return null;

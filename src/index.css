@@ -1,45 +1,38 @@
-/* Reiniciar márgenes y rellenos globalmente */
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Para que los bordes y los rellenos no afecten el tamaño total del elemento */
+  box-sizing: border-box; 
 }
 
-/* Establecer márgenes globales de manera controlada */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #023047;  /* Fondo general */
-  color: #8ecae6;  /* Color del texto */
+  background-color: #023047;  
+  color: #8ecae6; 
 }
 
-/* El contenedor principal .App */
 .App {
   text-align: center;
-  margin: 0 auto; /* Centra la app */
-  padding: 20px;
-  max-width: 1200px; /* Limitar el ancho máximo para pantallas grandes */
+  margin: 0 auto; 
+  max-width: 1200px; 
 }
 
-/* Estilo del encabezado */
 .App h1 {
   color: #ffb703;
   font-size: 36px;
   margin-bottom: 20px;
 }
 
-/* Estilo del menú */
 .menu {
-  margin-bottom: 20px; /* Espacio entre el menú y el contenido */
+  margin-bottom: 20px; 
   background-color: #264653;
   padding: 20px;
   border-radius: 8px;
 }
 
-/* Estilo de los botones */
 button {
   margin: 10px;
   padding: 10px 20px;
@@ -50,32 +43,30 @@ button {
   background-color: #ffb703;
   color: white;
   transition: transform 0.2s, background-color 0.3s ease;
-  display: inline-block; /* Para aplicar transformaciones sin romper el diseño */
+  display: inline-block; 
   position: relative;
   overflow: hidden;
 }
 
 button:hover {
-  transform: scale(1.1); /* Efecto de aumento */
+  transform: scale(1.1); 
   background-color: #e76f51;
 }
 
-/* Animación de flotación en las letras dentro de los botones */
 button span {
   display: inline-block;
-  animation: float 2s ease-in-out infinite; /* Animación de flotación */
+  animation: float 2s ease-in-out infinite; 
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0); /* Posición inicial */
+    transform: translateY(0); 
   }
   50% {
-    transform: translateY(-10px); /* Mover hacia arriba */
+    transform: translateY(-10px);
   }
 }
 
-/* Estilo para la ventana emergente */
 .modal {
   display: none;
   position: fixed;
@@ -107,9 +98,6 @@ button span {
   background-color: #e76f51;
 }
 
-/* Media Queries para hacerlo responsivo */
-
-/* Para pantallas pequeñas (móviles) */
 @media (max-width: 600px) {
   .App h1 {
     font-size: 24px;
@@ -125,7 +113,6 @@ button span {
   }
 }
 
-/* Para pantallas medianas (tablets y iPads) */
 @media (max-width: 768px) {
   .App h1 {
     font-size: 28px;
@@ -141,7 +128,6 @@ button span {
   }
 }
 
-/* Para pantallas grandes (laptops y escritorios) */
 @media (min-width: 1200px) {
   .App {
     padding: 40px;

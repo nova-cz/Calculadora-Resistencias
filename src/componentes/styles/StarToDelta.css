@@ -1,4 +1,3 @@
-/* Estilos generales */
 .body-container {
     display: flex;
     flex-direction: column;
@@ -72,7 +71,6 @@
     margin-bottom: 5px;
 }
 
-/* Animación para hacer que el resultado aparezca */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -109,7 +107,6 @@
     transform: translateY(1px);
 }
 
-/* Animación para los elementos de la lista */
 @keyframes listItemFadeIn {
     0% {
         opacity: 0;
@@ -142,25 +139,23 @@
     animation-delay: 0.6s;
 }
 
-/* Media Queries para hacer el diseño responsive */
 
-/* Estilos para dispositivos pequeños (móviles) */
 @media (max-width: 480px) {
     .input-container input {
-        width: 80px; /* Reducir el tamaño de los inputs */
+        width: 80px; 
     }
 
     .input-container button {
-        font-size: 12px; /* Reducir el tamaño del botón */
-        padding: 4px 8px; /* Ajustar el padding */
+        font-size: 12px; 
+        padding: 4px 8px; 
     }
 
     .procedure {
-        max-width: 100%; /* El procedimiento ocupa todo el ancho disponible */
+        max-width: 100%; 
     }
 
     .procedure h3 {
-        font-size: 18px; /* Reducir tamaño de título */
+        font-size: 18px; 
     }
 
     .result-container {
@@ -168,19 +163,18 @@
     }
 }
 
-/* Estilos para dispositivos medianos (tabletas) */
 @media (max-width: 768px) {
     .input-container input {
-        width: 120px; /* Ajustar el ancho de los inputs */
+        width: 120px;
     }
 
     .input-container button {
-        font-size: 14px; /* Ajustar tamaño de fuente */
+        font-size: 14px; 
         padding: 6px 12px;
     }
 
     .procedure {
-        max-width: 80%; /* El procedimiento ocupa el 80% del ancho */
+        max-width: 80%; 
     }
 
     .result-container {
@@ -188,19 +182,18 @@
     }
 }
 
-/* Estilos para dispositivos grandes (escritorios) */
 @media (min-width: 1024px) {
     .input-container input {
-        width: 150px; /* Inputs más grandes */
+        width: 150px; 
     }
 
     .input-container button {
-        font-size: 16px; /* Aumentar tamaño de fuente */
-        padding: 8px 15px; /* Botones más grandes */
+        font-size: 16px; 
+        padding: 8px 15px; 
     }
 
     .procedure {
-        max-width: 60%; /* El procedimiento ocupa el 60% del ancho */
+        max-width: 60%; 
     }
 
     .result-container {
